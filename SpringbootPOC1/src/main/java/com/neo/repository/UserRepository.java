@@ -8,9 +8,11 @@ import com.neo.model.User;
 
 public interface UserRepository extends JpaRepository<User,Integer>{
 
-	User findByFirstName(String firstName);
+	List<User> findByFirstName(String firstName);
+	
+	List<User> findByFirstNameOrLastNameOrId(String firstName,String lastname,int id);
 
-	User findByLastName(String lastname);
+	List<User> findByLastName(String lastname);
 
 	User findByPinCode(String pinCode);
 

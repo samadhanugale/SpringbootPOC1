@@ -4,13 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.neo.model.User;
 import com.neo.repository.UserRepository;
-
-import lombok.var;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -41,12 +38,12 @@ public class UserServiceImpl implements UserService{
 	
 
 	@Override
-	public User getByFirstName(String firstName) {
+	public List<User> getByFirstName(String firstName) {
 		return userRepository.findByFirstName(firstName);
 	}
 
 	@Override
-	public User getByLastName(String surname) {
+	public List<User> getByLastName(String surname) {
 		
 		return userRepository.findByLastName(surname);
 	}
@@ -75,6 +72,12 @@ public class UserServiceImpl implements UserService{
 	public List<User> getUserByStatus(int status) {
 		
 		return userRepository.findByStatus(status);
+	}
+
+	@Override
+	public List<User> getByFirstNameOrLastNameOrId(String firstName, String lastname, int id) {
+		// TODO Auto-generated method stub
+		return userRepository.findByFirstNameOrLastNameOrId(firstName, lastname, id);
 	}
 	
 }

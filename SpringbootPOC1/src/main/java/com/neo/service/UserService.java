@@ -18,9 +18,10 @@ public interface UserService {
 	
 	public void deleteUserById(int userId);
 
-	public User getByFirstName(String firstName);
+	public List<User> getByFirstName(String firstName);
 
-	public User getByLastName(String lastname);
+	public List<User> getByLastName(String lastname);
+	public List<User> getByFirstNameOrLastNameOrId(String firstName,String lastname,int id);
 
 	public User getByPinCode(String pinCode);
 

@@ -88,8 +88,15 @@ public class UserController {
 
 
 	@GetMapping("/lastname/{lastname}")
-	public MappingJacksonValue getBySurname(@PathVariable String lastname) {
+	public MappingJacksonValue getByLastname(@PathVariable String lastname) {
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.getByLastName(lastname));
+		mapping.setFilters(filters);
+		return mapping;		
+	}
+	
+	@GetMapping("/firstLastId/{firstName}/{lastName}/{id}")
+	public MappingJacksonValue getByFirstnameOrLastnameOrId(@PathVariable String firstName, String lastName,@PathVariable int id) {
+		MappingJacksonValue mapping = new MappingJacksonValue(userService.getByFirstNameOrLastNameOrId(firstName,lastName,id));
 		mapping.setFilters(filters);
 		return mapping;		
 	}
