@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<User> getByFirstNameOrLastNameOrId(String firstName, String lastname, int id) {
 		// TODO Auto-generated method stub
-		return userRepository.findByFirstNameOrLastNameOrId(firstName, lastname, id);
+		return userRepository.findByFirstNameOrLastNameOrUserId(firstName, lastname, id);
 	}
 	
 }

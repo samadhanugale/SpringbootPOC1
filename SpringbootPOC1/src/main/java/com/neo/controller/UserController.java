@@ -18,8 +18,11 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.neo.model.User;
 import com.neo.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 	
 	@Autowired
@@ -31,6 +34,7 @@ public class UserController {
 	@PostMapping("/add")
 	public User addUser(@RequestBody User user) {
 		user.setStatus(0);
+		log.info("User added");
 		return userService.addUser(user);
 	}
 	
@@ -45,6 +49,7 @@ public class UserController {
 	public MappingJacksonValue softDeleted(){
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.getUserByStatus(0));
 		mapping.setFilters(filters);
+		log.info("Getting all users");
 		return mapping;	
 	}
 	
@@ -52,6 +57,7 @@ public class UserController {
 	public MappingJacksonValue getUserById(@PathVariable("userId")int userId) {
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.getUserById(userId));
 		mapping.setFilters(filters);
+		log.info("Finding user by id : "+userId);
 		return mapping;
 	}
 	
@@ -60,6 +66,7 @@ public class UserController {
 		Optional<User> check=userService.getUserById(userId);
 		if(check.isPresent()) {
 		user.setUserId(userId);
+		log.info("Updating user by id : "+userId);
 		return userService.addUser(user);
 		}
 		return user;
@@ -68,6 +75,7 @@ public class UserController {
 	@DeleteMapping("/deleteDB/{userId}")
 	public void hardDelete(@PathVariable("userId")int userId) {
 		userService.deleteUserById(userId);
+		log.warn("Deleting user from database by id : "+userId);
 	}
 	
      @DeleteMapping("/delete/{userId}")
@@ -76,6 +84,7 @@ public class UserController {
 		user.setStatus(1);
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.addUser(user));
 		mapping.setFilters(filters);
+		log.warn("Soft deleting user by id : "+userId);
 		return mapping;
 	}
 	
@@ -83,6 +92,7 @@ public class UserController {
 	public MappingJacksonValue getByFirstName(@PathVariable("firstName") String firstName) {
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.getByFirstName(firstName));
 		mapping.setFilters(filters);
+		log.info("Finding user by First Name : "+firstName);
 		return mapping;
 	}
 
@@ -91,13 +101,15 @@ public class UserController {
 	public MappingJacksonValue getByLastname(@PathVariable String lastname) {
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.getByLastName(lastname));
 		mapping.setFilters(filters);
+		log.info("Finding user by Last Name : "+lastname);
 		return mapping;		
 	}
 	
 	@GetMapping("/firstLastId/{firstName}/{lastName}/{id}")
-	public MappingJacksonValue getByFirstnameOrLastnameOrId(@PathVariable String firstName, String lastName,@PathVariable int id) {
+	public MappingJacksonValue getByFirstnameOrLastnameOrId(@PathVariable String firstName,@PathVariable String lastName,@PathVariable int id) {
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.getByFirstNameOrLastNameOrId(firstName,lastName,id));
 		mapping.setFilters(filters);
+		log.info("Finding user by First Name : "+firstName+" or Last Name : "+lastName+" or id : "+id);
 		return mapping;		
 	}
 	
@@ -105,6 +117,7 @@ public class UserController {
 	public MappingJacksonValue getByPinCode(@PathVariable String pinCode) {
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.getByPinCode(pinCode));
 		mapping.setFilters(filters);
+		log.info("Finding user by Pincode : "+pinCode);
 		return mapping;		
 	}
 	
@@ -112,6 +125,7 @@ public class UserController {
 	public MappingJacksonValue findByOrderByDojAsc(){
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.findByOrderByDojAsc());
 		mapping.setFilters(filters);
+		log.info("Sorting users by Date of joining");
 		return mapping;	
 	 }
 	
@@ -119,6 +133,7 @@ public class UserController {
 	public MappingJacksonValue findByOrderByDobAsc(){
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.findByOrderByDobAsc());
 		mapping.setFilters(filters);
+		log.info("Sorting users by Date of Birth");
 		return mapping;	
 	 }
 
@@ -126,6 +141,7 @@ public class UserController {
 	public MappingJacksonValue hardDeleted(){
 		MappingJacksonValue mapping = new MappingJacksonValue(userService.getUserByStatus(1));
 		mapping.setFilters(filters);
+		log.info("Listing out Soft deleted users");
 		return mapping;	
 	}
 	
