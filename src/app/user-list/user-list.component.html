@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row" [hidden]="!deleteMessage">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <div class="alert alert-danger alert-dismissible">
+          <strong>User Data Deleted</strong>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+  </div>
+  <div class="m-4">
+    <input class="form-control me-2" type="text" [(ngModel)]="searchText" placeholder="Search" aria-label="Search">
+  </div>
+
+  <div class="panel-body">
+    <table class="table table-hover table-dark table-striped table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Address </th>
+          <th>PinCode</th>
+          <th>Date of Birth</th>
+          <th>Date of Joining</th>
+
+          <th>Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users |searchFilter : searchText ">
+          <td>{{user.userId}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.address}}</td>
+          <td>{{user.pinCode}}</td>
+          <td>{{user.dob | date}}</td>
+          <td>{{user.doj | date}}</td>
+          <td>
+            <button [routerLink]="['/edit',user.userId]" class='btn btn-primary' data-toggle="modal"
+              data-target="#myModal">Update</button>
+            <button (click)="deleteUser(user.userId)" class='btn mx-2 btn-danger'>Delete</button>
+          </td>
+        </tr>
+      </tbody><br>
+    </table>
+  </div>
+</div>

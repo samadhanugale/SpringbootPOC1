@@ -1,0 +1,79 @@
+
+<div class="row mt-5 ">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <div [hidden]="submitted" style="width: 400px;">
+      <form [formGroup]="usersaveform" class="border m-4 p-3" #saveuser (ngSubmit)="saveUser(saveuser)">
+        <div class="form-group">
+          <label for="name">First Name</label>
+          <input type="text" class="form-control" formControlName="firstName" data-toggle="tooltip"
+            data-placement="right" title="Enter Student Name">
+          <div *ngIf="(FirstName.touched && FirstName.invalid)" style="margin-top: 5px;">
+            <span class="alert alert-danger d-flex align-items-center mt-1" *ngIf="FirstName.errors.required">First Name
+              is Required</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Last Name</label>
+          <input type="text" class="form-control" formControlName="lastName" data-toggle="tooltip" data-placement="right" title="Enter Last Name">
+          <div *ngIf="(LastName.touched && LastName.invalid)" style="margin-top: 5px;">
+            <span class="alert alert-danger d-flex align-items-center mt-1" *ngIf="LastName.errors.required">Last Name
+              is Required</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name">User Address</label>
+          <input type="text" class="form-control" formControlName="address" data-toggle="tooltip" data-placement="right"
+            title="Enter Address ">
+            <div *ngIf="(Address.touched && Address.invalid)" style="margin-top: 5px;">
+              <span class="alert alert-danger d-flex align-items-center mt-1" *ngIf="Address.errors.required">Address
+                is Required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">User Pin Code</label>
+          <input type="text" class="form-control" formControlName="pinCode" data-toggle="tooltip" data-placement="right"
+            title="Enter PinCode ">
+            <div *ngIf="(PinCode.touched && PinCode.invalid)" style="margin-top: 5px;">
+              <span class="alert alert-danger d-flex align-items-center mt-1" *ngIf="PinCode.errors.required">Pin Code
+                is Required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Dob</label>
+          <input type="date" class="form-control" formControlName="dob" data-toggle="tooltip" data-placement="right"
+            title="Enter Dob ">
+            <div *ngIf="(Dob.touched && Dob.invalid)" style="margin-top: 5px;">
+              <span class="alert alert-danger d-flex align-items-center mt-1" *ngIf="Dob.errors.required">Required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Doj</label>
+          <input type="date" class="form-control" formControlName="doj" data-toggle="tooltip" data-placement="right"
+            title="Enter Doj ">
+            <div *ngIf="(Doj.touched && Doj.invalid)" style="margin-top: 5px;">
+              <span class="alert alert-danger d-flex align-items-center mt-1" *ngIf="Doj.errors.required">Required</span>
+            </div>
+        </div>
+
+
+
+        <button type="submit" class="btn mt-2 btn-success">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-sm-4"></div>
+</div>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <div [hidden]="!submitted">
+      <h4>User Added SuccessFully!</h4>
+    </div>
+  </div>
+  <div class="col-sm-4"></div>
+</div>
