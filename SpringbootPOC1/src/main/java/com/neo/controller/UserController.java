@@ -3,6 +3,7 @@ package com.neo.controller;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/user")
 @Slf4j
+@CrossOrigin
 public class UserController {
 	
 	@Autowired
@@ -87,6 +89,17 @@ public class UserController {
 		log.warn("Soft deleting user by id : "+userId);
 		return mapping;
 	}
+     
+     
+     @DeleteMapping("/restore/{userId}")
+ 	public MappingJacksonValue restoreDelete(@PathVariable("userId")int userId) {
+ 		User user=userService.getUserByFlagId(userId);
+ 		user.setStatus(0);
+ 		MappingJacksonValue mapping = new MappingJacksonValue(userService.addUser(user));
+ 		mapping.setFilters(filters);
+ 		log.warn("restored user by id : "+userId);
+ 		return mapping;
+ 	}
 	
 	@GetMapping("/firstname/{firstName}")
 	public MappingJacksonValue getByFirstName(@PathVariable("firstName") String firstName) {
